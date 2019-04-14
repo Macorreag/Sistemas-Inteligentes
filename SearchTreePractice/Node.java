@@ -5,7 +5,7 @@ import java.util.LinkedList;
  */
 public class Node<Action, State> {
 
-    public Node parent;
+    public Node<Action, State> parent;
     public LinkedList<Node> children;
     public int depth;
     public double pathCost;
@@ -16,7 +16,7 @@ public class Node<Action, State> {
         this.parent = parent;
         this.depth = depth;
         this.state = state;
-        this.pathcost = pathCost;
+        this.pathCost = pathCost;
         this.children = new LinkedList<>();
         this.action = action;
     }
