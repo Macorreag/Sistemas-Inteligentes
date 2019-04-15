@@ -36,7 +36,6 @@ public class TreeSearch<Action, State> {
             newNodes = this.expand(node);
             numNodes += newNodes.size();
             fridge.addAll(newNodes);
-
         }
         return null;
     }
@@ -55,6 +54,7 @@ public class TreeSearch<Action, State> {
                 if (this.problem.goalTest(node.state)) {
                     return node;
                 }
+                node.parent.children.remove(node);
                 continue;
             }
             node = aux.peek();

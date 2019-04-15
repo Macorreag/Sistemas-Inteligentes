@@ -6,8 +6,9 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-        int[][] initialState = { { 1, 2, 3 }, { 4, 0, 6 }, { 7, 5, 8 } };
-        // int[][] initialState = { { 7, 2, 4 }, { 5, 0, 6 }, { 8, 3, 1 } };
+        // int[][] initialState = { { 1, 5, 2 }, { 0, 4, 3 }, { 7, 8, 6 } }; // Este
+        // caso sirve para probar BFS
+        int[][] initialState = { { 1, 5, 2 }, { 0, 4, 3 }, { 7, 8, 6 } }; // Este caso sirve para probar BFS
         int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
 
         LinkedList<String> actions = new LinkedList<>();
@@ -19,8 +20,8 @@ public class Main {
         Puzzle pzzl = new Puzzle(initialState, actions, goalState, initialState.length);
 
         TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl);
-        Node<String, int[][]> result = ts.bfs();
-        // Node<String, int[][]> result = ts.dfs();
+        // Node<String, int[][]> result = ts.bfs();
+        Node<String, int[][]> result = ts.dfs();
 
         if (result == null) {
             System.out.println("No hay solución para el estado inicial dado.");
