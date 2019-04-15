@@ -27,7 +27,7 @@ public class Main {
             return;
         }
 
-        while (result.parent != null) {
+        while (result != null) {
             System.out.println("----------level " + result.depth + "----------");
             for (int i = 0; i < initialState.length; i++) {
                 for (int j = 0; j < initialState.length; j++) {
