@@ -25,14 +25,39 @@ public class TreeSearch<Action, State> {
 
     public Node<Action, State> bfs() {
         // fridge es una cola.
-        fridge.add(this.root);
-        Node<Action, State> node = null;
+        Node<Action, State> node = this.root;
+        LinkedList<Node<Action, State>> newNodes;
+        fridge.add(node);
         while (!fridge.isEmpty()) {
             node = fridge.poll();
             if (this.problem.goalTest(node.state)) {
                 return node;
             }
-            fridge.addAll(this.expand(node));
+            newNodes = this.expand(node);
+            numNodes += newNodes.size();
+            fridge.addAll(newNodes);
+
+        }
+        return null;
+    }
+
+    public Node<Action, State> dfs() {
+        // fridge es una pila.
+        Node<Action, State> node = this.root;
+        fridge.add(node);
+        LinkedList<Node<Action, State>> aux = null;
+        while (!fridge.isEmpty()) {
+            aux = this.expand(node);
+            fridge.addAll(0, aux);
+            if (aux.isEmpty()) {
+                aux = null;
+                node = fridge.pop();
+                if (this.problem.goalTest(node.state)) {
+                    return node;
+                }
+                continue;
+            }
+            node = aux.peek();
         }
         return null;
     }
@@ -50,7 +75,7 @@ public class TreeSearch<Action, State> {
             a = (Action) (temp.pop());
             r = (State) (temp.pop());
             while (parentNode.parent != null && !in_path) {
-                in_path = (r != parentNode.state);
+                in_path = this.problem.stateComparation(r, parentNode.state);
                 parentNode = parentNode.parent;
             }
             if (!in_path) {

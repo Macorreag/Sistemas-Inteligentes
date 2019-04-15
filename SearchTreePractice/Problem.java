@@ -18,4 +18,6 @@ public abstract class Problem<Action, State> {
 
     public abstract LinkedList<Node> successorFn(State nodeState);
 
+    public abstract boolean stateComparation(State state1, State state2);
+
 }

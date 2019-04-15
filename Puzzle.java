@@ -15,6 +15,19 @@ public class Puzzle extends Problem {
     }
 
     @Override
+    public boolean stateComparation(Object state1, Object state2) {
+        int stateAux1[][] = (int[][]) state1;
+        int stateAux2[][] = (int[][]) state2;
+        for (int row = 0; row < this.size; row++) {
+            for (int col = 0; col < this.size; col++) {
+                if (stateAux1[row][col] != stateAux2[row][col])
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean goalTest(Object nodeState) {
         int nodeState2[][] = (int[][]) nodeState;
         try {
@@ -49,8 +62,6 @@ public class Puzzle extends Problem {
                     newBlankPos[0] = blankPos[0] - 1;
                     newBlankPos[1] = blankPos[1];
                     if (newBlankPos[0] > -1) {
-                        action_result = new LinkedList<>();
-
                         action_result.add("UP");
                         action_result.add(cloneAndUpdateMatrix(nodeStateAux, newBlankPos, blankPos));
                         succesors.add(action_result);
@@ -90,12 +101,11 @@ public class Puzzle extends Problem {
                     break;
                 }
             }
-            return succesors;
         } catch (NullPointerException e) {
             System.out.println("Actions are not defined.");
             System.err.println(e);
         }
-        return null;
+        return succesors;
     }
 
     private int[][] cloneAndUpdateMatrix(int[][] state, int[] coorToUpdate, int[] zeroCoor) {
