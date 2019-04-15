@@ -9,12 +9,14 @@ public class TreeSearch<Action, State> {
     Node<Action, State> root;
     LinkedList<Node<Action, State>> fridge; // Cola para almacenar los nodos y armar el arbol
     Problem problem;
+    int numNodes;
 
     public TreeSearch(Problem problem) {
         this.fridge = new LinkedList<>();
         this.problem = problem;
         try {
             this.root = new Node<>(null, 1, (State) this.problem.initialState, 1, null);
+            this.numNodes = 1;
         } catch (Exception e) {
             System.out.println("Problem must be not null\n");
             System.err.println(e);
@@ -24,7 +26,7 @@ public class TreeSearch<Action, State> {
     public Node<Action, State> bfs() {
         // fridge es una cola.
         fridge.add(this.root);
-        Node<Action, State> node;
+        Node<Action, State> node = null;
         while (!fridge.isEmpty()) {
             node = fridge.poll();
             if (this.problem.goalTest(node.state)) {
@@ -41,20 +43,22 @@ public class TreeSearch<Action, State> {
         Action a;
         State r;
         boolean in_path;
-        for (Object action_result : this.problem.succesorFn(node.state)) {
-            action_result = (LinkedList<Node<Action, State>>) action_result;
+        LinkedList temp;
+        for (Object action_result : this.problem.successorFn(node.state)) {
+            temp = (LinkedList<Node>) action_result;
             in_path = false;
-            a = (Action) action_result.pop();
-            r = (State) action_result.pop();
+            a = (Action) (temp.pop());
+            r = (State) (temp.pop());
             while (parentNode.parent != null && !in_path) {
                 in_path = (r != parentNode.state);
                 parentNode = parentNode.parent;
             }
             if (!in_path) {
-                Node<State> s = new Node<>(node, node.depth + 1, a, node.pathCost + 1, r);
+                Node<Action, State> s = new Node<>(node, node.depth + 1, r, node.pathCost + 1, a);
                 successors.add(s);
             }
         }
+        node.children = successors;
         return successors;
     }
 

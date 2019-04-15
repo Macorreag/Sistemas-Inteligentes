@@ -20,78 +20,75 @@ public class Puzzle extends Problem {
         try {
             for (int i = 0; i < this.size; i++) {
                 for (int j = 0; j < this.size; j++) {
-                    if (((int[][]) this.goalState)[i][j] == nodeState2[i][j])
-                        return true;
+                    if (((int[][]) this.goalState)[i][j] != nodeState2[i][j])
+                        return false;
                 }
             }
         } catch (Exception e) {
             System.err.println("La matriz no es " + this.size + " x " + this.size + ".\n" + e);
         }
-        return false;
+        return true;
     }
 
     @Override
-    public LinkedList successorFn(Object nodeState) {
+    public LinkedList<Node> successorFn(Object nodeState) {
         if (nodeState == null) {
-            System.err.println("The node state passed to succesorFn is null\n" + e);
+            System.err.println("The node state passed to succesorFn is null");
             return null;
         }
         LinkedList succesors = new LinkedList<>();
         int nodeStateAux[][] = ((int[][]) nodeState).clone();
         int blankPos[] = this.getBlankPos(nodeStateAux);
-        int newBlankPos = -1;
+        int newBlankPos[] = { -1, -1 };
         LinkedList action_result;
         try {
-            for (Action action : this.actions) {
-                switch (action) {
+            for (Object action : this.actions) {
+                action_result = new LinkedList<>();
+                switch ((String) action) {
                 case "UP":
-                    newBlankPos = blankPos[0] - 1;
-                    if (newBlankPos > -1) {
-                        nodeStateAux[blankPos[0]][blankPos[1]] = nodeStateAux[newBlankPos][blankPos[1]];
-                        nodeStateAux[newBlankPos][blankPos[1]] = 0;
+                    newBlankPos[0] = blankPos[0] - 1;
+                    newBlankPos[1] = blankPos[1];
+                    if (newBlankPos[0] > -1) {
                         action_result = new LinkedList<>();
+
                         action_result.add("UP");
-                        action_result.add(nodeStateAux);
+                        action_result.add(cloneAndUpdateMatrix(nodeStateAux, newBlankPos, blankPos));
                         succesors.add(action_result);
                     }
                     break;
 
                 case "DOWN":
-                    newBlankPos = blankPos[0] + 1;
-                    if (newBlankPos < this.size) {
-                        nodeStateAux[blankPos[0]][blankPos[1]] = nodeStateAux[newBlankPos][blankPos[1]];
-                        nodeStateAux[newBlankPos][blankPos[1]] = 0;
+                    newBlankPos[0] = blankPos[0] + 1;
+                    newBlankPos[1] = blankPos[1];
+                    if (newBlankPos[0] < this.size) {
                         action_result.add("DOWN");
-                        action_result.add(nodeStateAux);
+                        action_result.add(cloneAndUpdateMatrix(nodeStateAux, newBlankPos, blankPos));
                         succesors.add(action_result);
                     }
                     break;
 
                 case "LEFT":
-                    newBlankPos = blankPos[1] - 1;
-                    if (newBlankPos > -1) {
-                        nodeStateAux[blankPos[0]][blankPos[1]] = nodeStateAux[blankPos[0]][newBlankPos];
-                        nodeStateAux[blankPos[0]][newBlankPos] = 0;
+                    newBlankPos[1] = blankPos[1] - 1;
+                    newBlankPos[0] = blankPos[0];
+                    if (newBlankPos[1] > -1) {
                         action_result.add("LEFT");
-                        action_result.add(nodeStateAux);
+                        action_result.add(cloneAndUpdateMatrix(nodeStateAux, newBlankPos, blankPos));
                         succesors.add(action_result);
                     }
                     break;
 
                 case "RIGHT":
-                    newBlankPos = blankPos[1] + 1;
-                    if (newBlankPos < this.size) {
-                        nodeStateAux[blankPos[0]][blankPos[1]] = nodeStateAux[blankPos[0]][newBlankPos];
-                        nodeStateAux[blankPos[0]][newBlankPos] = 0;
+                    newBlankPos[1] = blankPos[1] + 1;
+                    newBlankPos[0] = blankPos[0];
+                    if (newBlankPos[1] < this.size) {
                         action_result.add("RIGHT");
-                        action_result.add(nodeStateAux);
+                        action_result.add(cloneAndUpdateMatrix(nodeStateAux, newBlankPos, blankPos));
                         succesors.add(action_result);
                     }
                     break;
                 default:
                     break;
                 }
-                nodeStateAux = nodeStateAux.clone();
             }
             return succesors;
         } catch (NullPointerException e) {
@@ -99,6 +96,18 @@ public class Puzzle extends Problem {
             System.err.println(e);
         }
         return null;
+    }
+
+    private int[][] cloneAndUpdateMatrix(int[][] state, int[] coorToUpdate, int[] zeroCoor) {
+        int newMatrix[][] = new int[this.size][this.size];
+        for (int row = 0; row < this.size; row++) {
+            for (int col = 0; col < this.size; col++) {
+                newMatrix[row][col] = state[row][col];
+            }
+        }
+        newMatrix[zeroCoor[0]][zeroCoor[1]] = state[coorToUpdate[0]][coorToUpdate[1]];
+        newMatrix[coorToUpdate[0]][coorToUpdate[1]] = 0;
+        return newMatrix;
     }
 
     private int[] getBlankPos(int[][] state) {

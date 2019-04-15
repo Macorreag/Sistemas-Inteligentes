@@ -16,6 +16,6 @@ public abstract class Problem<Action, State> {
 
     public abstract boolean goalTest(State nodeState);
 
-    public abstract LinkedList successorFn(State nodeState);
+    public abstract LinkedList<Node> successorFn(State nodeState);
 
 }
