@@ -16,8 +16,8 @@ public class Node<Action, State> {
         this.parent = parent;
         this.depth = depth;
         this.state = state;
-        this.pathCost = pathCost;
         this.children = new LinkedList<>();
         this.action = action;
     }
+
 }

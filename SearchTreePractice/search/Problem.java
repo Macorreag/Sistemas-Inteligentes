@@ -3,7 +3,7 @@ import java.util.LinkedList;
 /**
  * Problem
  */
-public abstract class Problem<Action, State> {
+public abstract class Problem<Action, State> implements StateComparator<State>, TreeSearchInterface<State> {
 
     State initialState, goalState;
     LinkedList<Action> actions;
@@ -13,11 +13,5 @@ public abstract class Problem<Action, State> {
         this.actions = actions;
         this.goalState = goalState;
     }
-
-    public abstract boolean goalTest(State nodeState);
-
-    public abstract LinkedList<Node> successorFn(State nodeState);
-
-    public abstract boolean stateComparation(State state1, State state2);
 
 }
