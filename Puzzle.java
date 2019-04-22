@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.lang.Math;
+import search.*;
 
 /**
  * 8-Puzzle

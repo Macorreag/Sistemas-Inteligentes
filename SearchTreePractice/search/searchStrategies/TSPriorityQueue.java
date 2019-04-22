@@ -1,4 +1,7 @@
+package search.searchStrategies;
+
 import java.util.Collection;
+import search.*;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 // import searchTree.StateComparator;

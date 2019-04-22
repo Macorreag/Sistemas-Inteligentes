@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import search.*;
 
 import search.searchStrategies.*;
 
@@ -36,7 +37,7 @@ public class Main {
         // printState((int[][]) pzzl.initialState);
 
         // TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new TSStack());
-        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new TSStack());
+        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new TSPriorityQueue());
         Node<String, int[][]> result = ts.search();
         // Node<String, int[][]> result = ts.dfs();
         // Node<String, int[][]> result = ts.dls(6);

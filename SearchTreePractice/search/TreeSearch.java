@@ -1,5 +1,8 @@
-import java.util.Hashtable;
+package search;
+
 import java.util.LinkedList;
+
+import search.searchStrategies.Fringe;
 
 /**
  * TreeSearch

@@ -1,3 +1,6 @@
+package search.searchStrategies;
+
+import search.*;
 import java.util.Collection;
 
 /**

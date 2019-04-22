@@ -1,4 +1,7 @@
+package search.searchStrategies;
+
 import java.util.Collection;
+import search.*;
 import java.util.LinkedList;
 import java.util.Queue;
 

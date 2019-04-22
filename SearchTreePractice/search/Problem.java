@@ -1,3 +1,5 @@
+package search;
+
 import java.util.LinkedList;
 
 /**
@@ -5,8 +7,8 @@ import java.util.LinkedList;
  */
 public abstract class Problem<Action, State> implements StateComparator<State>, TreeSearchInterface<State> {
 
-    State initialState, goalState;
-    LinkedList<Action> actions;
+    public State initialState, goalState;
+    public LinkedList<Action> actions;
 
     public Problem(State initalState, State goalState, LinkedList<Action> actions) {
         this.initialState = initalState;
