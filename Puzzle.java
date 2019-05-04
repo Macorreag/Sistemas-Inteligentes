@@ -1,10 +1,14 @@
 import java.util.LinkedList;
+
+import SearchTreePractice.search.Node;
+import SearchTreePractice.search.Problem;
+
 import java.lang.Math;
 
 /**
  * 8-Puzzle
  */
-public class Puzzle extends Problem {
+public class Puzzle extends Problem<String, int[][]> {
     int size;
 
     public Puzzle(int[][] initialState, LinkedList<String> actions, int goalState[][], int size) {
@@ -60,12 +64,10 @@ public class Puzzle extends Problem {
     }
 
     @Override
-    public int stateComparation(Object state1, Object state2) {
-        int stateAux1[][] = (int[][]) state1;
-        int stateAux2[][] = (int[][]) state2;
+    public int stateComparation(int[][] state1, int[][] state2) {
         for (int row = 0; row < this.size; row++) {
             for (int col = 0; col < this.size; col++) {
-                if (stateAux1[row][col] != stateAux2[row][col])
+                if (state1[row][col] != state2[row][col])
                     return -1;
             }
         }
@@ -73,17 +75,16 @@ public class Puzzle extends Problem {
     }
 
     @Override
-    public double stepCost(Node node) {
+    public double stepCost(Node<String, int[][]> node) {
         return (double) node.depth;
     }
 
     @Override
-    public boolean goalTest(Object nodeState) {
-        int nodeState2[][] = (int[][]) nodeState;
+    public boolean goalTest(int[][] nodeState) {
         try {
             for (int i = 0; i < this.size; i++) {
                 for (int j = 0; j < this.size; j++) {
-                    if (((int[][]) this.goalState)[i][j] != nodeState2[i][j])
+                    if (((int[][]) this.goalState)[i][j] != nodeState[i][j])
                         return false;
                 }
             }
@@ -94,16 +95,16 @@ public class Puzzle extends Problem {
     }
 
     @Override
-    public LinkedList successorFn(Object nodeState) {
+    public LinkedList<LinkedList<Object>> successorFn(int[][] nodeState) {
         if (nodeState == null) {
             System.err.println("The node state passed to succesorFn is null");
             return null;
         }
-        LinkedList succesors = new LinkedList<>();
+        LinkedList<LinkedList<Object>> succesors = new LinkedList<>();
         int nodeStateAux[][] = ((int[][]) nodeState).clone();
         int blankPos[] = this.getBlankPos(nodeStateAux);
         int newBlankPos[] = { -1, -1 };
-        LinkedList action_result;
+        LinkedList<Object> action_result;
         try {
             for (Object action : this.actions) {
                 action_result = new LinkedList<>();
