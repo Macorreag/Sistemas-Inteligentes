@@ -1,4 +1,4 @@
-package SearchTreePractice.search;
+package search;
 
 import java.util.LinkedList;
 

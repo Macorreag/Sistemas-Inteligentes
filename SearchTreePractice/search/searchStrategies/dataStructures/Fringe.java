@@ -1,8 +1,8 @@
-package SearchTreePractice.search.searchStrategies.dataStructures;
+package search.searchStrategies.dataStructures;
 
 import java.util.Collection;
 
-import SearchTreePractice.search.Node;
+import search.Node;
 
 /**
  * Search

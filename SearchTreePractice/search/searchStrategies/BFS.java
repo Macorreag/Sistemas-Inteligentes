@@ -1,7 +1,7 @@
-package SearchTreePractice.search.searchStrategies;
+package search.searchStrategies;
 
-import SearchTreePractice.search.searchStrategies.dataStructures.Fringe;
-import SearchTreePractice.search.searchStrategies.dataStructures.TSQueue;
+import search.searchStrategies.dataStructures.Fringe;
+import search.searchStrategies.dataStructures.TSQueue;
 
 /**
  * BFS

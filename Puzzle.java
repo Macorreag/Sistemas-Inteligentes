@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
-import SearchTreePractice.search.Node;
-import SearchTreePractice.search.Problem;
+import search.Node;
+import search.Problem;
 
 import java.lang.Math;
 

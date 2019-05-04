@@ -1,8 +1,8 @@
-package SearchTreePractice.search;
+package search;
 
 import java.util.LinkedList;
 
-import SearchTreePractice.search.searchStrategies.Strategy;
+import search.searchStrategies.Strategy;
 
 /**
  * TreeSearch

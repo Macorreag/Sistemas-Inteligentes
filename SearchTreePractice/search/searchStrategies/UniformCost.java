@@ -1,10 +1,10 @@
-package SearchTreePractice.search.searchStrategies;
+package search.searchStrategies;
 
 import java.util.Comparator;
 
-import SearchTreePractice.search.Node;
-import SearchTreePractice.search.searchStrategies.dataStructures.Fringe;
-import SearchTreePractice.search.searchStrategies.dataStructures.TSPriorityQueue;
+import search.Node;
+import search.searchStrategies.dataStructures.Fringe;
+import search.searchStrategies.dataStructures.TSPriorityQueue;
 
 /**
  * UniformCost

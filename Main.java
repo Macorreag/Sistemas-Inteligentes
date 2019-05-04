@@ -1,9 +1,9 @@
 import java.util.LinkedList;
 
-import SearchTreePractice.search.Node;
-import SearchTreePractice.search.Problem;
-import SearchTreePractice.search.TreeSearch;
-import SearchTreePractice.search.searchStrategies.*;
+import search.Node;
+import search.Problem;
+import search.TreeSearch;
+import search.searchStrategies.*;
 
 /**
  * Main
