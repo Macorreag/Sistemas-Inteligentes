@@ -1,5 +1,8 @@
-import java.util.Hashtable;
+package SearchTreePractice.search;
+
 import java.util.LinkedList;
+
+import SearchTreePractice.search.searchStrategies.Strategy;
 
 /**
  * TreeSearch
@@ -11,15 +14,15 @@ public class TreeSearch<Action, State> {
     public static final int DFS = 1;
 
     Node<Action, State> root;
-    Fringe strategy; // Cola para almacenar los nodos y armar el arbol
-    Problem problem;
+    Strategy<Action, State> strategy; // Cola para almacenar los nodos y armar el arbol
+    Problem<Action, State> problem;
     int numNodes;
 
-    public TreeSearch(Problem problem, Fringe strategy) {
+    public TreeSearch(Problem<Action, State> problem, Strategy<Action, State> strategy) {
         this.strategy = strategy;
         this.problem = problem;
         try {
-            Node<Action, State> root = new Node(null, 1, (State) this.problem.initialState, 0, null);
+            Node<Action, State> root = new Node<>(null, 1, (State) this.problem.initialState, 0, null);
             root.pathCost = this.problem.stepCost(root);
             this.root = root;
             this.numNodes = 1;
@@ -29,20 +32,35 @@ public class TreeSearch<Action, State> {
         }
     }
 
-    public Node search() {
-        Node node = this.root;
-        LinkedList<Node> newNodes;
+    public Node<Action, State> search() {
+        if (this.strategy.getNum_iterations() > 1) {
+            Node<Action, State> solution;
+            for (int iteration = 0; iteration < this.strategy.getNum_iterations(); iteration++) {
+                if ((solution = _search(iteration)) != null)
+                    return solution;
+            }
+        }
+        return _search(this.strategy.getMax_depth());
+    }
 
-        this.strategy.addNode(node);
+    private Node<Action, State> _search(int max_depth) {
+        Node<Action, State> node = this.root;
+        LinkedList<Node<Action, State>> newNodes;
 
-        while (!this.strategy.isEmpty()) {
-            node = this.strategy.removeNode();
+        this.strategy.getFringe().addNode(node);
+
+        while (!this.strategy.getFringe().isEmpty()) {
+            node = this.strategy.getFringe().removeNode();
             if (this.problem.goalTest(node.state)) {
                 return node;
             }
-            newNodes = this.expand(node);
-            if (!newNodes.isEmpty())
-                this.strategy.addAll(newNodes);
+            if (node.depth < max_depth) {
+                newNodes = this.expand(node);
+                if (!newNodes.isEmpty())
+                    this.strategy.getFringe().addAll(newNodes);
+            } else {
+                System.out.println("Max depth reached: " + node.depth);
+            }
         }
         return null;
     }
@@ -50,29 +68,28 @@ public class TreeSearch<Action, State> {
     /**
      * @param strategy the strategy to set
      */
-    public void setStrategy(Fringe strategy) {
+    public void setStrategy(Strategy<Action, State> strategy) {
         this.strategy = null;
         this.strategy = strategy;
     }
 
-    public LinkedList<Node> expand(Node node) {
-        LinkedList<Node> successors = new LinkedList<>();
-        Node parentNode = node;
+    @SuppressWarnings("unchecked")
+    public LinkedList<Node<Action, State>> expand(Node<Action, State> node) {
+        LinkedList<Node<Action, State>> successors = new LinkedList<>();
+        Node<Action, State> parentNode = node;
         Action a;
         State r;
         int in_path;
-        LinkedList temp;
-        for (Object A_result : this.problem.successorFn(node.state)) {
-            temp = (LinkedList) A_result;
+        for (LinkedList<Object> A_result : this.problem.successorFn(node.state)) {
             in_path = -1;
-            a = (Action) (temp.pop());
-            r = (State) (temp.pop());
+            a = (Action) (A_result.pop());
+            r = (State) (A_result.pop());
             while (parentNode.parent != null && in_path != 0) {
                 in_path = this.problem.stateComparation(r, parentNode.state);
                 parentNode = parentNode.parent;
             }
             if (in_path != 0) {
-                Node s = new Node<>(node, node.depth + 1, r, 0, a);
+                Node<Action, State> s = new Node<>(node, node.depth + 1, r, 0, a);
                 s.pathCost = this.problem.stepCost(s);
                 successors.add(s);
             }

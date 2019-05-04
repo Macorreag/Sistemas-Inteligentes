@@ -1,13 +1,15 @@
+package SearchTreePractice.search;
+
 import java.util.LinkedList;
 
 /**
  * TreeSearchInterface
  */
-public interface TreeSearchInterface<State> {
+public interface TreeSearchInterface<Action, State> {
 
-    public double stepCost(Node node);
+    public double stepCost(Node<Action, State> node);
 
     public boolean goalTest(State state);
 
-    public LinkedList successorFn(State node);
+    public LinkedList<LinkedList<Object>> successorFn(State node);
 }
