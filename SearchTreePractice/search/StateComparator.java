@@ -1,3 +1,5 @@
+package SearchTreePractice.search;
+
 /**
  * SteteComparator
  */

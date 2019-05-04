@@ -1,12 +1,15 @@
+package SearchTreePractice.search;
+
 import java.util.LinkedList;
 
 /**
  * Problem
  */
-public abstract class Problem<Action, State> implements StateComparator<State>, TreeSearchInterface<State> {
+public abstract class Problem<Action, State> implements StateComparator<State>, TreeSearchInterface<Action, State> {
 
-    State initialState, goalState;
-    LinkedList<Action> actions;
+    protected State initialState;
+	protected State goalState;
+    protected LinkedList<Action> actions;
 
     public Problem(State initalState, State goalState, LinkedList<Action> actions) {
         this.initialState = initalState;
