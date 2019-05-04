@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 
-import search.searchStrategies.*;
+import SearchTreePractice.search.Node;
+import SearchTreePractice.search.Problem;
+import SearchTreePractice.search.TreeSearch;
+import SearchTreePractice.search.searchStrategies.*;
 
 /**
  * Main
@@ -16,31 +19,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        // int[][] initialState = { { 1, 5, 2 }, { 0, 4, 3 }, { 7, 8, 6 } }; // Este
-        // caso sirve para probar BFS
-        // int[][] initialState = null; // { { 1, 5, 2 }, { 0, 4, 3 }, { 7, 8, 6 } }; //
-        // Este
-        // caso sirve para probar BFS
-        int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-
-        LinkedList<String> actions = new LinkedList<>();
-        actions.add("UP");
-        actions.add("DOWN");
-        actions.add("LEFT");
-        actions.add("RIGHT");
-
-        Problem pzzl = new Puzzle(null, actions, goalState, 3);
-        // StateComparator sComparator = (StateComparator) pzzl;
-        ((Puzzle) pzzl).desorganize(7);
-        // printState((int[][]) pzzl.initialState);
-
-        // TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new TSStack());
-        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new TSStack());
-        Node<String, int[][]> result = ts.search();
-        // Node<String, int[][]> result = ts.dfs();
-        // Node<String, int[][]> result = ts.dls(6);
-
+    static void showAnswer(Node<String, int[][]> result) {
         if (result == null) {
             System.out.println("No hay solución para el estado inicial dado.");
             return;
@@ -48,9 +27,33 @@ public class Main {
 
         while (result != null) {
             System.out.println("----------level " + result.depth + "----------");
+            // System.out.println(result.action);
             printState(result.state);
             result = result.parent;
         }
+    }
+
+    public static void main(String[] args) {
+        
+        int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
+        // int[][] initialState = { { 1, 2, 0 }, { 4, 5, 3 }, { 7, 8, 6 } };
+
+        LinkedList<String> actions = new LinkedList<>();
+        actions.add("UP");
+        actions.add("DOWN");
+        actions.add("LEFT");
+        actions.add("RIGHT");
+
+        Problem<String, int[][]> pzzl = new Puzzle(null, actions, goalState, 3);
+        ((Puzzle) pzzl).desorganize(20);
+        // printState((int[][]) pzzl.initialState);
+
+        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new DFS<>(100));
+        showAnswer(ts.search());
+        // ts.setStrategy(new BFS<>());
+        // showAnswer(ts.search());
+
+        
 
     }
 }
