@@ -18,6 +18,7 @@ public class Main {
             System.out.println();
         }
     }
+    
 
     static void showAnswer(Node<String, int[][]> result) {
         if (result == null) {
