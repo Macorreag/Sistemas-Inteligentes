@@ -68,10 +68,10 @@ public class Puzzle extends Problem<String, int[][]> {
         for (int row = 0; row < this.size; row++) {
             for (int col = 0; col < this.size; col++) {
                 if (state1[row][col] != state2[row][col])
-                    return -1;
+                    return 0;
             }
         }
-        return 0;
+        return 1;
     }
 
     @Override
