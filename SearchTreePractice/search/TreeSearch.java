@@ -58,8 +58,6 @@ public class TreeSearch<Action, State> {
                 newNodes = this.expand(node);
                 if (!newNodes.isEmpty())
                     this.strategy.getFringe().addAll(newNodes);
-            } else {
-                System.out.println("Max depth reached: " + node.depth);
             }
         }
         return null;
@@ -76,19 +74,20 @@ public class TreeSearch<Action, State> {
     @SuppressWarnings("unchecked")
     public LinkedList<Node<Action, State>> expand(Node<Action, State> node) {
         LinkedList<Node<Action, State>> successors = new LinkedList<>();
-        Node<Action, State> parentNode = node;
+        Node<Action, State> parentNode;
         Action a;
         State r;
         int in_path;
         for (LinkedList<Object> A_result : this.problem.successorFn(node.state)) {
             in_path = -1;
+            parentNode = node;
             a = (Action) (A_result.pop());
             r = (State) (A_result.pop());
-            while (parentNode.parent != null && in_path != 0) {
+            while (parentNode != null && in_path != 1) {
                 in_path = this.problem.stateComparation(r, parentNode.state);
                 parentNode = parentNode.parent;
             }
-            if (in_path != 0) {
+            if (in_path != 1) {
                 Node<Action, State> s = new Node<>(node, node.depth + 1, r, 0, a);
                 s.pathCost = this.problem.stepCost(s);
                 successors.add(s);
