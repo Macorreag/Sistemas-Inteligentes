@@ -1,27 +1,30 @@
+package SearchTreePractice.search.searchStrategies.dataStructures;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 // import searchTree.StateComparator;
 
+import SearchTreePractice.search.Node;
+
 /**
  * TSPriorityQueue
  */
-public class TSPriorityQueue implements Fringe {
+public class TSPriorityQueue<Action, State> implements Fringe<Action, State> {
 
-    PriorityQueue<Node> pQueue;
+    PriorityQueue<Node<Action, State>> pQueue;
 
-    public TSPriorityQueue() {
-        Comparator<Node> c = (node1, node2) -> (int) (node1.pathCost - node2.pathCost);
+    public TSPriorityQueue(Comparator<Node<Action, State>> c) {
         this.pQueue = new PriorityQueue<>(c);
     }
 
     @Override
-    public boolean addNode(Node node) {
+    public boolean addNode(Node<Action, State> node) {
         return this.pQueue.add(node);
     }
 
     @Override
-    public Node removeNode() {
+    public Node<Action, State> removeNode() {
         return this.pQueue.poll();
     }
 
@@ -31,7 +34,7 @@ public class TSPriorityQueue implements Fringe {
     }
 
     @Override
-    public boolean addAll(Collection<Node> nodes) {
+    public boolean addAll(Collection<Node<Action, State>> nodes) {
         return this.pQueue.addAll(nodes);
     }
 

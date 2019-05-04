@@ -1,25 +1,29 @@
+package SearchTreePractice.search.searchStrategies.dataStructures;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import SearchTreePractice.search.Node;
+
 /**
  * Queue
  */
-public class TSQueue implements Fringe {
+public class TSQueue<Action, State> implements Fringe<Action, State> {
 
-    Queue<Node> queue;
+    Queue<Node<Action, State>> queue;
 
     public TSQueue() {
         this.queue = new LinkedList<>();
     }
 
     @Override
-    public boolean addNode(Node node) {
+    public boolean addNode(Node<Action, State> node) {
         return this.queue.add(node);
     }
 
     @Override
-    public Node removeNode() {
+    public Node<Action, State> removeNode() {
         return this.queue.poll();
     }
 
@@ -29,7 +33,7 @@ public class TSQueue implements Fringe {
     }
 
     @Override
-    public boolean addAll(Collection<Node> nodes) {
+    public boolean addAll(Collection<Node<Action, State>> nodes) {
         return this.queue.addAll(nodes);
     }
 
