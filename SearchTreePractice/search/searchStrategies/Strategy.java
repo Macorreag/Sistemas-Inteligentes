@@ -8,7 +8,7 @@ import search.searchStrategies.dataStructures.Fringe;
 public abstract class Strategy<Action, State> {
 
     Fringe<Action, State> fringe;
-    int num_iterations = 1, max_depth;
+    int num_iterations = 1, max_depth = Integer.MAX_VALUE;
 
     abstract public Fringe<Action, State> getFringe();
 

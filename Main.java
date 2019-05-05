@@ -37,7 +37,7 @@ public class Main {
     public static void main(String[] args) {
         
         int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-        // int[][] initialState = { { 1, 2, 0 }, { 4, 5, 3 }, { 7, 8, 6 } };
+        int[][] initialState = { { 1, 2, 0 }, { 4, 5, 3 }, { 7, 8, 6 } };
 
         LinkedList<String> actions = new LinkedList<>();
         actions.add("UP");
@@ -45,11 +45,11 @@ public class Main {
         actions.add("LEFT");
         actions.add("RIGHT");
 
-        Problem<String, int[][]> pzzl = new Puzzle(null, actions, goalState, 3);
-        ((Puzzle) pzzl).desorganize(20);
+        Problem<String, int[][]> pzzl = new Puzzle(initialState, actions, goalState, 3);
+        //((Puzzle) pzzl).desorganize(20);
         // printState((int[][]) pzzl.initialState);
 
-        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new DFS<>(100));
+        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new AStar<>(new Missplaced(pzzl)));
         showAnswer(ts.search());
         // ts.setStrategy(new BFS<>());
         // showAnswer(ts.search());

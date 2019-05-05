@@ -2,6 +2,7 @@ import java.util.LinkedList;
 
 import search.Node;
 import search.Problem;
+import search.searchStrategies.Heuristic;
 
 import java.lang.Math;
 
@@ -10,6 +11,7 @@ import java.lang.Math;
  */
 public class Puzzle extends Problem<String, int[][]> {
     int size;
+    Heuristic<String, int[][]> heuristic;
 
     public Puzzle(int[][] initialState, LinkedList<String> actions, int goalState[][], int size) {
         super(initialState, goalState, actions);
