@@ -18,7 +18,6 @@ public class Main {
             System.out.println();
         }
     }
-    
 
     static void showAnswer(Node<String, int[][]> result) {
         if (result == null) {
@@ -35,7 +34,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        
+
         int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
         int[][] initialState = { { 1, 2, 0 }, { 4, 5, 3 }, { 7, 8, 6 } };
 
@@ -46,15 +45,13 @@ public class Main {
         actions.add("RIGHT");
 
         Problem<String, int[][]> pzzl = new Puzzle(initialState, actions, goalState, 3);
-        //((Puzzle) pzzl).desorganize(20);
+        // ((Puzzle) pzzl).desorganize(20);
         // printState((int[][]) pzzl.initialState);
 
-        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new AStar<>(new Missplaced(pzzl)));
+        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new Greddy<>(new Missplaced(pzzl)));
         showAnswer(ts.search());
         // ts.setStrategy(new BFS<>());
         // showAnswer(ts.search());
-
-        
 
     }
 }
