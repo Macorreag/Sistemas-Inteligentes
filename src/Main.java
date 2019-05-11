@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 
+import PicasYFilas.picasFijas;
 import search.Node;
 import search.Problem;
 import search.TreeSearch;
@@ -34,7 +35,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        new picasFijas();
         int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
         int[][] initialState = { { 1, 2, 0 }, { 4, 5, 3 }, { 7, 8, 6 } };
 
@@ -48,7 +49,7 @@ public class Main {
         // ((Puzzle) pzzl).desorganize(20);
         // printState((int[][]) pzzl.initialState);
 
-        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new Greddy<>(new Missplaced(pzzl)));
+        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new AStar<>(new Missplaced(pzzl)));
         showAnswer(ts.search());
         // ts.setStrategy(new BFS<>());
         // showAnswer(ts.search());
