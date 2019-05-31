@@ -11,16 +11,16 @@ import search.searchStrategies.*;
  */
 public class Main {
 
-    static void printState(int state[][]) {
+    static void printState(char state[][]) {
         for (int row = 0; row < state.length; row++) {
             for (int col = 0; col < state.length; col++) {
-                System.out.print(state[row][col] + " ");
+                System.out.print(state[row][col]);
             }
             System.out.println();
         }
     }
 
-    static void showAnswer(Node<String, int[][]> result) {
+    static void showAnswer(Node<String, char[][]> result) {
         if (result == null) {
             System.out.println("No hay solución para el estado inicial dado.");
             return;
@@ -35,9 +35,24 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new picasFijas();
-        int[][] goalState = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 0 } };
-        int[][] initialState = { { 1, 2, 0 }, { 4, 5, 3 }, { 7, 8, 6 } };
+        
+        
+        
+        char[][] initialState = {
+                        { '#', '#', '#', '#', '#'},
+                        { '#', '$', ' ', ' ', '#'},
+                        { '#', '%', '&', ' ', '#'},
+                        { '#', ' ', ' ', ' ', '#'},
+                        { '#', '#', '#', '#', '#'} 
+                            };
+                            
+        char[][] goalState = {                           
+                            { '#', '#', '#', '#', '#'},
+                            { '#', '$', ' ', ' ', '#'},
+                            { '#', ' ', ' ', ' ', '#'},
+                            { '#', ' ', ' ', ' ', '#'},
+                            { '#', '#', '#', '#', '#'} 
+                            };                            
 
         LinkedList<String> actions = new LinkedList<>();
         actions.add("UP");
@@ -45,11 +60,11 @@ public class Main {
         actions.add("LEFT");
         actions.add("RIGHT");
 
-        Problem<String, int[][]> pzzl = new Puzzle(initialState, actions, goalState, 3);
+        Problem<String, char[][]> sokoban = new Zokoban(initialState,actions, goalState, 5);
         // ((Puzzle) pzzl).desorganize(20);
         // printState((int[][]) pzzl.initialState);
 
-        TreeSearch<String, int[][]> ts = new TreeSearch<>(pzzl, new AStar<>(new Missplaced(pzzl)));
+        TreeSearch<String, char[][]> ts = new TreeSearch<>(sokoban, new BFS<>());
         showAnswer(ts.search());
         // ts.setStrategy(new BFS<>());
         // showAnswer(ts.search());
