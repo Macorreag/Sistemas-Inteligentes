@@ -9,10 +9,6 @@ import search.searchStrategies.Strategy;
  */
 public class TreeSearch<Action, State> {
 
-    public static final int BFS = 0;
-    public static final int IDLS = 2;
-    public static final int DFS = 1;
-
     Node<Action, State> root;
     Strategy<Action, State> strategy; // Cola para almacenar los nodos y armar el arbol
     Problem<Action, State> problem;
@@ -69,6 +65,11 @@ public class TreeSearch<Action, State> {
     public void setStrategy(Strategy<Action, State> strategy) {
         this.strategy = null;
         this.strategy = strategy;
+    }
+
+    public void reset() {
+        this.root = null;
+        this.root = new Node<Action,State>(null, 1, this.problem.initialState, 0, null);
     }
 
     @SuppressWarnings("unchecked")
