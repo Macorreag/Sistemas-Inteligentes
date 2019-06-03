@@ -5,6 +5,7 @@ import search.Node;
 import search.Problem;
 import search.TreeSearch;
 import search.searchStrategies.*;
+import sokoban.Sokoban;
 
 /**
  * Main
@@ -35,24 +36,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        
-        
-        
-        char[][] initialState = {
-                        { '#', '#', '#', '#', '#'},
-                        { '#', '$', ' ', ' ', '#'},
-                        { '#', '%', '&', ' ', '#'},
-                        { '#', ' ', ' ', ' ', '#'},
-                        { '#', '#', '#', '#', '#'} 
-                            };
-                            
-        char[][] goalState = {                           
-                            { '#', '#', '#', '#', '#'},
-                            { '#', '$', ' ', ' ', '#'},
-                            { '#', ' ', ' ', ' ', '#'},
-                            { '#', ' ', ' ', ' ', '#'},
-                            { '#', '#', '#', '#', '#'} 
-                            };                            
+
+        char[][] initialState = { { '#', '#', '#', '#', '#' }, 
+                                  { '#', '$', ' ', ' ', '#' }, 
+                                  { '#', '%', '&', ' ', '#' },
+                                  { '#', ' ', ' ', ' ', '#' }, 
+                                  { '#', '#', '#', '#', '#' } };
+
+        char[][] goalState = { { '#', '#', '#', '#', '#' }, { '#', '$', ' ', ' ', '#' }, { '#', ' ', ' ', ' ', '#' },
+                { '#', ' ', ' ', ' ', '#' }, { '#', '#', '#', '#', '#' } };
 
         LinkedList<String> actions = new LinkedList<>();
         actions.add("UP");
@@ -60,12 +52,16 @@ public class Main {
         actions.add("LEFT");
         actions.add("RIGHT");
 
-        Problem<String, char[][]> sokoban = new Zokoban(initialState,actions, goalState, 5);
+        // Problem<String, char[][]> sokoban = new Zokoban(initialState,actions,
+        // goalState, 5);
         // ((Puzzle) pzzl).desorganize(20);
         // printState((int[][]) pzzl.initialState);
 
-        TreeSearch<String, char[][]> ts = new TreeSearch<>(sokoban, new BFS<>());
-        showAnswer(ts.search());
+        Sokoban s = new Sokoban(initialState);
+        s.solve();
+
+        // TreeSearch<String, char[][]> ts = new TreeSearch<>(sokoban, new BFS<>());
+        // showAnswer(ts.search());
         // ts.setStrategy(new BFS<>());
         // showAnswer(ts.search());
 
