@@ -35,13 +35,7 @@ public class SokobanSolver extends Problem<String, State> {
 
     @Override
     public int stateComparation(State state1, State state2) {
-        for (int row = 0; row < this.size; row++) {
-            for (int col = 0; col < this.size; col++) {
-                if (state1.box_pos[row][col] != state2.box_pos[row][col])
-                    return 0;
-            }
-        }
-        return 1;
+        return state1.box_pos.equals(state2.box_pos) ? 1 : 0;
     }
 
     @Override
@@ -50,21 +44,8 @@ public class SokobanSolver extends Problem<String, State> {
     }
 
     @Override
-    public boolean goalTest(char[][] nodeState) {
-        try {
-            for (int i = 0; i < this.size; i++) {
-                for (int j = 0; j < this.size; j++) {
-                    if (((char[][])this.goalState)[i][j] == '$' && nodeState[i][j] != '%' )
-                        return false;
-                    
-
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("La matriz no es " + this.size + " x " + this.size + ".\n" + e);
-        }
-        return true;
-        
+    public boolean goalTest(State nodeState) {
+        return nodeState.box_pos.equals(this.goalState.box_pos);        
     }
 
     @Override
@@ -189,21 +170,6 @@ public class SokobanSolver extends Problem<String, State> {
         }
         
         return newMatrix;
-    }
-
-    private int[] getPlayerPos(char[][] state) {
-        int pos[];
-        for (int row = 0; row < this.size; row++) {
-            for (int col = 0; col < this.size; col++) {
-                if (state[row][col] == '&') {
-                    pos = new int[2];
-                    pos[0] = row;
-                    pos[1] = col;
-                    return pos;
-                }
-            }
-        }
-        return null;
     }
     
     private byte tranform_to_array(byte x, byte y)
