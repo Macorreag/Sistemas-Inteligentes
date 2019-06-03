@@ -11,5 +11,5 @@ public interface TreeSearchInterface<Action, State> {
 
     public boolean goalTest(State state);
 
-    public LinkedList<LinkedList<Object>> successorFn(State node);
+    public LinkedList<LinkedList<Object>> successorFn(State state);
 }
