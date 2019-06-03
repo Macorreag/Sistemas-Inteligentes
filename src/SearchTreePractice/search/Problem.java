@@ -1,7 +1,5 @@
 package search;
 
-import java.util.LinkedList;
-
 import search.searchStrategies.Heuristic;
 
 /**
@@ -11,10 +9,10 @@ public abstract class Problem<Action, State> implements StateComparator<State>, 
 
     protected State initialState;
 	protected State goalState;
-    protected LinkedList<Action> actions;
+    protected Action actions[];
     protected Heuristic<Action, State> heuristic;
 
-    public Problem(State initialState, State goalState, LinkedList<Action> actions) {
+    public Problem(State initialState, State goalState, Action[] actions) {
         this.initialState = initialState;
         this.actions = actions;
         this.goalState = goalState;
@@ -32,6 +30,20 @@ public abstract class Problem<Action, State> implements StateComparator<State>, 
      */
     public State getGoalState() {
         return goalState;
+    }
+
+    /**
+     * @param goalState the goalState to set
+     */
+    public void setGoalState(State goalState) {
+        this.goalState = goalState;
+    }
+
+    /**
+     * @param initialState the initialState to set
+     */
+    public void setInitialState(State initialState) {
+        this.initialState = initialState;
     }
 
 }

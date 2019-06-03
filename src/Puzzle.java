@@ -13,7 +13,7 @@ public class Puzzle extends Problem<String, int[][]> {
     int size;
     Heuristic<String, int[][]> heuristic;
 
-    public Puzzle(int[][] initialState, LinkedList<String> actions, int goalState[][], int size) {
+    public Puzzle(int[][] initialState, String[] actions, int goalState[][], int size) {
         super(initialState, goalState, actions);
         this.initialState = initialState;
         this.goalState = goalState;
