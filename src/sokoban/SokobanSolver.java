@@ -1,4 +1,4 @@
-package zokoban;
+package sokoban;
 
 import java.util.LinkedList;
 
@@ -11,13 +11,13 @@ import java.lang.Math;
 /**
  * Zokoban
  */
-public class ZokobanSolver extends Problem<String, State> {
+public class SokobanSolver extends Problem<String, State> {
     int size;
     public static byte map[][];
     Heuristic<String, char[][]> heuristic;
     State satate;
 
-    public ZokobanSolver(State initialState, LinkedList<String> actions, State goalState,  int size) {
+    public SokobanSolver(State initialState, LinkedList<String> actions, State goalState,  int size) {
         super(initialState, goalState,  actions);
         this.initialState = initialState;
         this.goalState = goalState;
@@ -37,7 +37,7 @@ public class ZokobanSolver extends Problem<String, State> {
     public int stateComparation(State state1, State state2) {
         for (int row = 0; row < this.size; row++) {
             for (int col = 0; col < this.size; col++) {
-                if (state1.box_pos[row][col] != state2.[row][col])
+                if (state1.box_pos[row][col] != state2.box_pos[row][col])
                     return 0;
             }
         }
